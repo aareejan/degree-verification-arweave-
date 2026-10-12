@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Degree Certificate Template</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Times New Roman', Georgia, serif; background: #fff; }
+  .page {
+    width: 210mm; min-height: 297mm; padding: 20mm 18mm;
+    background: #fffdf6; position: relative; overflow: hidden;
+    border: 12px double #8a6d1f; margin: 0 auto;
+  }
+  .page::before {
+    content: ""; position: absolute; inset: 16px; border: 2px solid #8a6d1f;
+    pointer-events: none;
+  }
+  .inner { padding: 10mm 8mm; position: relative; z-index: 1; }
+
+  .header { text-align: center; margin-bottom: 10mm; }
+  .logo { width: 80px; height: 80px; margin: 0 auto 6px; display: block; }
+  .institute {
+    font-family: 'Times New Roman', serif; font-size: 34px; font-weight: bold;
+    letter-spacing: 3px; color: #0f2b46; margin-top: 4px;
+  }
+  .sub {
+    font-size: 12px; letter-spacing: 6px; text-transform: uppercase;
+    color: #8a6d1f; margin-top: 4px; font-weight: bold;
+  }
+  .address { font-size: 11px; color: #666; margin-top: 4px; letter-spacing: 1px; }
+
+  .title {
+    text-align: center; margin: 8mm 0 6mm;
+  }
+  .title h1 {
+    font-family: 'Times New Roman', serif; font-size: 40px;
+    color: #0f2b46; font-style: italic; letter-spacing: 4px; font-weight: bold;
+  }
+  .title .line {
+    width: 60%; height: 2px; background: #8a6d1f; margin: 8px auto;
+  }
+  .title p { font-size: 12px; letter-spacing: 3px; color: #8a6d1f; font-weight: bold; }
+
+  .body-text { font-size: 15px; line-height: 2.1; color: #2b2b2b; margin: 6mm 0; text-align: justify; }
+  .body-text .hl { color: #0f2b46; font-weight: bold; border-bottom: 1px dotted #8a6d1f; padding: 0 4px; }
+
+  .info-block {
+    display: flex; gap: 12mm; margin: 8mm 0; align-items: flex-start;
+  }
+  .photo-wrap {
+    width: 32mm; height: 42mm; border: 3px solid #8a6d1f; padding: 2px;
+    background: #fff; flex-shrink: 0;
+  }
+  .photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .details { flex: 1; }
+  .row { display: grid; grid-template-columns: 55mm 1fr; gap: 4px; padding: 4px 0; border-bottom: 1px dashed #d8c890; font-size: 14px; }
+  .row .lbl { color: #6b6450; font-weight: bold; letter-spacing: .5px; }
+  .row .val { color: #1a1a1a; font-weight: bold; }
+  .row .val.mono { font-family: 'Courier New', monospace; font-size: 13px; }
+
+  .grade-panel {
+    margin: 8mm 0; padding: 6mm; border: 2px solid #8a6d1f; background: #fdf6e3;
+    display: flex; justify-content: space-around; text-align: center;
+  }
+  .grade-panel .item .k { font-size: 10px; letter-spacing: 2px; color: #6b6450; font-weight: bold; text-transform: uppercase; }
+  .grade-panel .item .v { font-size: 22px; color: #0f2b46; font-weight: bold; margin-top: 4px; font-family: 'Times New Roman', serif; }
+
+  .qr-block { display: flex; gap: 10mm; align-items: center; margin: 8mm 0; padding: 6mm; border: 2px solid #0f2b46; background: #f4f7fb; }
+  .qr-block img { width: 45mm; height: 45mm; background: #fff; padding: 4px; border: 1px solid #0f2b46; }
+  .qr-block .qr-text { flex: 1; font-size: 12px; line-height: 1.7; color: #1a1a1a; }
+  .qr-block .qr-text strong { display: block; font-size: 14px; color: #0f2b46; margin-bottom: 4px; letter-spacing: 1px; }
+  .qr-block .qr-text .verify-note { font-size: 11px; color: #555; margin-top: 6px; }
+
+  .signatures { display: flex; justify-content: space-between; margin-top: 14mm; padding-top: 6mm; }
+  .signatures .sig { text-align: center; width: 60mm; }
+  .signatures .sig .line { border-top: 1px solid #333; margin-bottom: 4px; }
+  .signatures .sig .cap { font-size: 11px; font-weight: bold; color: #0f2b46; letter-spacing: 1px; }
+
+  .footer {
+    position: absolute; bottom: 12mm; left: 20mm; right: 20mm;
+    display: flex; justify-content: space-between; font-size: 10px; color: #666;
+    border-top: 1px solid #d8c890; padding-top: 4px; letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="inner">
+
+    <div class="header">
+      <svg class="logo" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="60,8 112,100 8,100" fill="#3b4a8c" stroke="#22305e" stroke-width="2"/>
+        <polygon points="60,112 112,20 8,20" fill="#c03a2b" stroke="#8c2418" stroke-width="2"/>
+        <circle cx="60" cy="60" r="22" fill="#f4efe4" stroke="#8c6d1f" stroke-width="2.5"/>
+        <text x="60" y="69" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="22" fill="#7a1f14">HI</text>
+      </svg>
+      <div class="institute">HIMALAYAN INSTITUTE</div>
+      <div class="sub">of Science &amp; Technology</div>
+      <div class="address">Kathmandu, Nepal &nbsp;•&nbsp; Office of the Controller of Examinations</div>
+    </div>
+
+    <div class="title">
+      <h1>Degree Certificate</h1>
+      <div class="line"></div>
+      <p>OFFICIAL ACADEMIC CREDENTIAL</p>
+    </div>
+
+    <div class="body-text">
+      This is to certify that
+      <span class="hl" id="studentNameSpan">—</span>,
+      son/daughter of <span class="hl" id="fatherNameSpan">—</span>
+      and <span class="hl" id="motherNameSpan">—</span>,
+      born on <span class="hl" id="dobSpan">—</span>,
+      has successfully completed the requirements for the degree of
+      <span class="hl" id="degreeNameSpan">—</span>
+      with major in <span class="hl" id="majorSpan">—</span>
+      from Himalayan Institute of Science &amp; Technology,
+      affiliated with Tribhuvan University.
+    </div>
+
+    <div class="info-block">
+      <div class="photo-wrap">
+        <img id="studentPhoto" alt="Student Photo">
+      </div>
+      <div class="details">
+        <div class="row"><span class="lbl">Roll Number</span><span class="val mono" id="rollNoSpan">—</span></div>
+        <div class="row"><span class="lbl">Registration No.</span><span class="val mono" id="regNoSpan">—</span></div>
+        <div class="row"><span class="lbl">Programme</span><span class="val" id="degreeNameRow">—</span></div>
+        <div class="row"><span class="lbl">Major</span><span class="val" id="majorRow">—</span></div>
+        <div class="row"><span class="lbl">Passing Year</span><span class="val" id="passYearRow">—</span></div>
+        <div class="row"><span class="lbl">Date of Issue</span><span class="val" id="issueDateRow">—</span></div>
+        <div class="row"><span class="lbl">Certificate No.</span><span class="val mono" id="certNoRow">—</span></div>
+      </div>
+    </div>
+
+    <div class="grade-panel">
+      <div class="item"><div class="k">GPA</div><div class="v" id="gpaSpan">—</div></div>
+      <div class="item"><div class="k">Percentage</div><div class="v" id="percentageSpan">—</div></div>
+      <div class="item"><div class="k">Pass Year</div><div class="v" id="passYearSpan">—</div></div>
+    </div>
+
+    <div class="qr-block">
+      <img id="qrPreview" alt="QR Code">
+      <div class="qr-text">
+        <strong>SCAN TO VERIFY</strong>
+        This certificate is anchored permanently on the Arweave blockchain. The QR code links to the official verification page containing the complete student record and cryptographic proof of authenticity.
+        <div class="verify-note">
+          Tampering with this document invalidates the on-chain record. Any party may independently verify at the Arweave gateway URL encoded in the QR.
+        </div>
+      </div>
+    </div>
+
+    <div class="signatures">
+      <div class="sig">
+        <div class="line"></div>
+        <div class="cap">REGISTRAR</div>
+      </div>
+      <div class="sig">
+        <div class="line"></div>
+        <div class="cap">CONTROLLER OF EXAMINATIONS</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>Himalayan Institute of Science &amp; Technology</span>
+      <span id="footerCertNo">—</span>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden inputs the server fills -->
+<div style="display:none">
+  <input id="studentName" /><input id="fatherName" /><input id="motherName" />
+  <input id="dob" /><input id="rollNo" /><input id="regNo" />
+  <input id="degreeName" /><input id="major" /><input id="gpa" />
+  <input id="percentage" /><input id="passYear" /><input id="issueDate" />
+  <input id="certNo" />
+</div>
+
+<script>
+function sync() {
+  const v = id => document.getElementById(id)?.value || '—';
+  document.getElementById('studentNameSpan').textContent  = v('studentName').toUpperCase();
+  document.getElementById('fatherNameSpan').textContent   = v('fatherName').toUpperCase();
+  document.getElementById('motherNameSpan').textContent   = v('motherName').toUpperCase();
+  document.getElementById('dobSpan').textContent          = v('dob');
+  document.getElementById('rollNoSpan').textContent       = v('rollNo');
+  document.getElementById('regNoSpan').textContent        = v('regNo');
+  document.getElementById('degreeNameSpan').textContent   = v('degreeName');
+  document.getElementById('majorSpan').textContent        = v('major');
+  document.getElementById('degreeNameRow').textContent    = v('degreeName');
+  document.getElementById('majorRow').textContent         = v('major');
+  document.getElementById('passYearRow').textContent      = v('passYear');
+  document.getElementById('issueDateRow').textContent     = v('issueDate');
+  document.getElementById('certNoRow').textContent        = v('certNo');
+  document.getElementById('gpaSpan').textContent          = v('gpa');
+  document.getElementById('percentageSpan').textContent   = v('percentage');
+  document.getElementById('passYearSpan').textContent     = v('passYear');
+  document.getElementById('footerCertNo').textContent     = 'Certificate No: ' + v('certNo');
+}
+['studentName','fatherName','motherName','dob','rollNo','regNo','degreeName','major','gpa','percentage','passYear','issueDate','certNo'].forEach(id => {
+  document.getElementById(id).addEventListener('input', sync);
+});
+sync();
+</script>
+</body>
+</html>
