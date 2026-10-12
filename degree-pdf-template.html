@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Official Academic Transcript — Himalayan Institute of Science & Technology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0f2b4c; --navy-soft:#2c4a6e; --gold:#a8842c;
+    --rule:#d6dde4; --paper:#ffffff; --ink:#16202b; --muted:#5d6b7a; --ink-sig:#12283f;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ background:#e8ebee; font-family:"Times New Roman", Times, Georgia, serif; color:var(--ink); padding:32px 16px 64px; -webkit-font-smoothing:antialiased; }
+  .page{ position:relative; width:8.5in; max-width:100%; min-height:11in; margin:0 auto; background:var(--paper); padding:0.55in 0.6in 0.5in; box-shadow:0 10px 34px rgba(12,30,50,.22), 0 2px 6px rgba(12,30,50,.12); overflow:hidden; }
+  .page::before{ content:"HIMALAYAN INSTITUTE OF SCIENCE & TECHNOLOGY"; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(-28deg); font-size:40px; font-weight:700; letter-spacing:5px; color:rgba(15,43,76,.045); white-space:nowrap; pointer-events:none; z-index:0; }
+  .page > *{ position:relative; z-index:1; }
+  header{ display:flex; align-items:center; gap:16px; padding-bottom:12px; }
+  .crest{ flex:0 0 auto; width:88px; }
+  .crest svg{ display:block; width:100%; height:auto; }
+  .uni{ flex:1 1 auto; text-align:center; }
+  .uni h1{ margin:0; font-size:18.5px; letter-spacing:.08em; color:var(--navy); font-weight:700; text-transform:uppercase; line-height:1.25; }
+  .uni .tagline{ margin:5px 0 0; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); font-weight:700; }
+  .uni .addr{ margin:7px 0 0; font-size:11px; line-height:1.55; color:var(--muted); }
+  .reg-block{ flex:0 0 138px; text-align:right; font-size:9px; line-height:1.55; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; }
+  .reg-block strong{ color:var(--navy); display:block; letter-spacing:.1em; }
+  .reg-block .qr-inline{ margin-top:9px; text-align:center; }
+  .reg-block .qr-inline img{ width:64px; height:64px; display:inline-block; border:1px solid var(--rule); padding:2px; background:#fff; border-radius:2px; }
+  .reg-block .qr-caption{ display:block; font-size:6px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-top:4px; font-weight:700; }
+  .header-rule{ height:3px; background:var(--navy); border-bottom:1px solid var(--gold); margin-bottom:0; }
+  .title-bar{ text-align:center; padding:11px 0 10px; border-bottom:1px solid var(--rule); margin-bottom:16px; }
+  .title-bar h2{ margin:0; font-size:15px; letter-spacing:.34em; text-transform:uppercase; color:var(--navy); font-weight:700; }
+  .title-bar p{ margin:4px 0 0; font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+  .section-title{ font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--navy); font-weight:700; border-bottom:1.5px solid var(--navy); padding-bottom:4px; margin:0 0 8px; }
+  .info-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0 30px; margin-bottom:18px; }
+  .info-table{ width:100%; border-collapse:collapse; font-size:12px; }
+  .info-table td{ padding:3.5px 0; vertical-align:baseline; }
+  .info-table td.lbl{ width:44%; color:var(--muted); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; padding-right:10px; }
+  .info-table td.val{ font-weight:700; color:var(--ink); letter-spacing:.02em; }
+  .val.mono{ font-family:"Courier New", monospace; font-size:11px; letter-spacing:.04em; word-break:break-all; }
+  .term{ margin-bottom:14px; page-break-inside:avoid; }
+  .term-head{ display:flex; justify-content:space-between; align-items:center; background:#eef2f6; border-left:3px solid var(--navy); padding:6px 10px; margin-bottom:0; }
+  .term-head .term-name{ font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--navy); }
+  .term-head .term-note{ font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); font-weight:700; }
+  table.courses{ width:100%; border-collapse:collapse; font-size:11.5px; }
+  table.courses th{ text-align:left; font-size:8.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--navy); font-weight:700; padding:6px 8px 4px; border-bottom:1px solid var(--navy-soft); }
+  table.courses td{ padding:4.5px 8px; border-bottom:1px solid #edf1f4; vertical-align:top; }
+  table.courses tr:last-child td{ border-bottom:none; }
+  .c-code{ width:12%; font-weight:700; color:var(--navy-soft); letter-spacing:.02em; white-space:nowrap; }
+  .c-title{ width:52%; }
+  .c-cr, .c-gr, .c-qp{ text-align:center; white-space:nowrap; }
+  .c-cr{ width:10%; } .c-gr{ width:10%; font-weight:700; } .c-qp{ width:12%; }
+  .term-total td{ border-top:1px solid var(--navy-soft) !important; border-bottom:none !important; font-weight:700; font-size:11px; color:var(--navy); padding-top:6px; letter-spacing:.04em; background:#fafbfc; }
+  .term-total .c-cr, .term-total .c-qp{ text-align:center; }
+  .term-total .lbl-cell{ text-align:right; letter-spacing:.12em; font-size:9.5px; text-transform:uppercase; }
+  .summary{ display:grid; grid-template-columns:1.55fr 1fr; gap:22px; margin:18px 0 16px; page-break-inside:avoid; }
+  .summary-box{ border:1px solid var(--rule); padding:12px 14px; }
+  .summary-box h3{ margin:0 0 9px; font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--navy); border-bottom:1px solid var(--rule); padding-bottom:5px; }
+  .sum-table{ width:100%; border-collapse:collapse; font-size:11.5px; }
+  .sum-table td{ padding:3px 0; }
+  .sum-table td:last-child{ text-align:right; font-weight:700; }
+  .sum-table tr.divider td{ border-top:1px solid var(--rule); padding-top:7px; }
+  .sum-table tr.grand td{ border-top:2px solid var(--navy); padding-top:7px; font-size:12.5px; color:var(--navy); letter-spacing:.04em; }
+  .gpa-figure{ text-align:center; padding:4px 0 2px; }
+  .gpa-figure .big{ font-size:38px; font-weight:700; color:var(--navy); line-height:1; letter-spacing:.02em; }
+  .gpa-figure .cap{ display:block; margin-top:6px; font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+  .gpa-figure .scale{ margin-top:9px; font-size:10.5px; color:var(--muted); border-top:1px solid var(--rule); padding-top:8px; }
+  .legend{ border:1px solid var(--rule); background:#fafbfc; padding:11px 14px; font-size:10px; line-height:1.65; color:var(--muted); margin-bottom:18px; page-break-inside:avoid; }
+  .legend h3{ margin:0 0 7px; font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--navy); }
+  .legend .grades{ display:grid; grid-template-columns:repeat(6,1fr); gap:3px 10px; margin:6px 0 8px; color:var(--ink); font-size:10px; }
+  .legend .grades span b{ color:var(--navy); }
+  .signature-area{ display:grid; grid-template-columns:1fr auto; gap:26px; align-items:end; margin-top:22px; page-break-inside:avoid; }
+  .sig-left{ display:flex; flex-direction:column; gap:22px; }
+  .sig-line{ position:relative; border-bottom:1px solid var(--ink); width:3.1in; max-width:100%; height:50px; }
+  .sig-script{ position:absolute; left:4px; bottom:-9px; font-family:'Great Vibes','Brush Script MT','Segoe Script','Lucida Handwriting','Apple Chancery',cursive; font-size:38px; line-height:1; color:var(--ink-sig); letter-spacing:.02em; white-space:nowrap; transform:rotate(-2.2deg); transform-origin:left bottom; pointer-events:none; text-shadow:0 0 .35px rgba(18,40,63,.55); }
+  .sig-caption{ font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-top:5px; }
+  .sig-name{ font-size:11.5px; font-weight:700; color:var(--ink); margin-top:3px; letter-spacing:.02em; }
+  .seal-wrap{ text-align:center; }
+  .seal-wrap svg{ width:142px; height:142px; display:block; }
+  .seal-wrap .issued{ margin-top:6px; font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+  footer{ margin-top:22px; border-top:2px solid var(--navy); padding-top:9px; display:flex; justify-content:space-between; gap:18px; font-size:8.5px; line-height:1.6; color:var(--muted); letter-spacing:.03em; }
+  footer .doc-id{ font-family:"Courier New", monospace; font-size:9.5px; color:var(--navy); white-space:nowrap; }
+  footer .legal{ max-width:5.1in; }
+  @media print{
+    @page{ size:letter; margin:0; }
+    body{ background:#fff; padding:0; }
+    .page{ box-shadow:none; margin:0; width:100%; min-height:auto; padding:0.5in 0.55in; }
+    .page::before{ color:rgba(15,43,76,.05); }
+    .sig-script{ color:#12283f !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="crest">
+      <svg viewBox="0 0 100 122" role="img" aria-label="Crest">
+        <defs>
+          <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#173a63"/>
+            <stop offset="100%" stop-color="#0f2b4c"/>
+          </linearGradient>
+        </defs>
+        <path d="M50 4 L94 20 V62 C94 90 75 108 50 118 C25 108 6 90 6 62 V20 Z" fill="url(#shieldGrad)" stroke="#a8842c" stroke-width="2.5"/>
+        <path d="M50 13 L85 26 V62 C85 85 70 100 50 109 C30 100 15 85 15 62 V26 Z" fill="none" stroke="#a8842c" stroke-width="1" opacity=".8"/>
+        <path d="M22 52 L36 32 L46 44 L56 24 L72 52 Z" fill="none" stroke="#e8d9b0" stroke-width="1.4" stroke-linejoin="round"/>
+        <path d="M56 24 L62 32 L58 32 Z" fill="#e8d9b0"/>
+        <text x="50" y="72" text-anchor="middle" font-family="Georgia, serif" font-size="21" font-weight="700" fill="#f4e6c2" letter-spacing="1">HIST</text>
+        <line x1="24" y1="80" x2="76" y2="80" stroke="#a8842c" stroke-width="1"/>
+        <text x="50" y="95" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#e8d9b0" letter-spacing="3">1998</text>
+      </svg>
+    </div>
+    <div class="uni">
+      <h1>Himalayan Institute<br>of Science &amp; Technology</h1>
+      <p class="tagline">Office of the Controller of Examinations</p>
+      <p class="addr">
+        Kalimati Height, Kathmandu 44600, Nepal<br>
+        +977 1 555 0142 &nbsp;·&nbsp; examinations@hist.edu.np
+      </p>
+    </div>
+    <div class="reg-block">
+      <strong>Transcript</strong>
+      Issued by the<br>Office of the Controller<br>of Examinations
+      <div class="qr-inline">
+        <img id="pdfQr" alt="QR Code — Scan to verify">
+        <span class="qr-caption">Scan to Verify on Arweave</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="header-rule"></div>
+
+  <div class="title-bar">
+    <h2>Official Academic Transcript</h2>
+    <p>Bachelor Level · Verifiable Credential · Anchored on Arweave</p>
+  </div>
+
+  <h3 class="section-title">Student Record</h3>
+
+  <div class="info-grid">
+    <table class="info-table">
+      <tr><td class="lbl">Student Name</td><td class="val" id="pdfStudentName">—</td></tr>
+      <tr><td class="lbl">Symbol Number</td><td class="val mono" id="pdfSymbolNo">—</td></tr>
+      <tr><td class="lbl">Date of Birth</td><td class="val" id="pdfDob">—</td></tr>
+      <tr><td class="lbl">Programme</td><td class="val" id="pdfProgramme">—</td></tr>
+      <tr><td class="lbl">Faculty</td><td class="val" id="pdfFaculty">—</td></tr>
+    </table>
+    <table class="info-table">
+      <tr><td class="lbl">Issuer Wallet</td><td class="val mono">TBJSLEeN74eSi7N3kVTpDRJ53tunl5idAq_BYM4fkDA</td></tr>
+      <tr><td class="lbl">Credential Anchor</td><td class="val mono" id="pdfDocId">—</td></tr>
+      <tr><td class="lbl">Enrollment Status</td><td class="val" id="pdfEnrollStatus">—</td></tr>
+      <tr><td class="lbl">Date Issued</td><td class="val" id="pdfDateIssued">—</td></tr>
+      <tr><td class="lbl">Academic Standing</td><td class="val" id="pdfStanding">—</td></tr>
+    </table>
+  </div>
+
+  <h3 class="section-title">Academic Record by Term</h3>
+  <div id="pdfTermsWrap"></div>
+
+  <div class="summary">
+    <div class="summary-box">
+      <h3>Cumulative Summary</h3>
+      <table class="sum-table">
+        <tr><td>Total Credits Attempted</td><td id="pdfTotalCredits">—</td></tr>
+        <tr><td>Total Credits Earned</td><td id="pdfTotalCredits2">—</td></tr>
+        <tr><td>Total Quality Points</td><td id="pdfTotalQP">—</td></tr>
+        <tr class="divider"><td>Semesters Completed</td><td id="pdfSemesters">—</td></tr>
+        <tr><td>Academic Standing</td><td id="pdfStanding2">—</td></tr>
+        <tr class="grand"><td>Cumulative GPA</td><td id="pdfCgpaText">—</td></tr>
+      </table>
+    </div>
+    <div class="summary-box">
+      <h3>Grade Point Average</h3>
+      <div class="gpa-figure">
+        <div class="big" id="pdfCgpaBig">—</div>
+        <span class="cap">Cumulative GPA</span>
+        <div class="scale">
+          Major GPA: <strong id="pdfMajorGpa">—</strong><br>
+          Scale: 4.00
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <h3>Grade Scale &amp; Notation</h3>
+    <div class="grades">
+      <span><b>A</b> = 4.00</span><span><b>A−</b> = 3.70</span><span><b>B+</b> = 3.30</span>
+      <span><b>B</b> = 3.00</span><span><b>B−</b> = 2.70</span><span><b>C+</b> = 2.30</span>
+      <span><b>C</b> = 2.00</span><span><b>D</b> = 1.00</span><span><b>F</b> = 0.00</span>
+      <span><b>W</b> = Withdrawn</span><span><b>I</b> = Incomplete</span><span><b>TR</b> = Transfer</span>
+    </div>
+    Grade point average is computed by dividing total quality points by total credits attempted.
+    Only coursework completed at Himalayan Institute of Science &amp; Technology is included in the cumulative grade point average.
+    Dean's List recognition requires a term GPA of 3.50 or higher with a minimum of 12 graded credits.
+    This transcript reflects the complete academic record as of the issue date.
+  </div>
+
+  <div class="signature-area">
+    <div class="sig-left">
+      <div>
+        <div class="sig-line"><span class="sig-script">John Doe</span></div>
+        <div class="sig-caption">Controller of Examinations — Signature</div>
+        <div class="sig-name">John Doe, Ph.D.</div>
+        <div class="sig-caption" style="text-transform:none; letter-spacing:.02em;">Controller of Examinations</div>
+      </div>
+      <div>
+        <div class="sig-line"></div>
+        <div class="sig-caption">Date Issued</div>
+        <div class="sig-name" id="pdfDateIssued2">—</div>
+      </div>
+    </div>
+    <div class="seal-wrap">
+      <svg viewBox="0 0 200 200" role="img" aria-label="Official seal">
+        <defs>
+          <path id="sealArc" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/>
+          <path id="sealArcBottom" d="M100,100 m-58,0 a58,58 0 1,0 116,0 a58,58 0 1,0 -116,0"/>
+        </defs>
+        <circle cx="100" cy="100" r="94" fill="none" stroke="#0f2b4c" stroke-width="2.5"/>
+        <circle cx="100" cy="100" r="88" fill="none" stroke="#a8842c" stroke-width="1.2"/>
+        <circle cx="100" cy="100" r="68" fill="none" stroke="#0f2b4c" stroke-width="1.2"/>
+        <circle cx="100" cy="100" r="62" fill="none" stroke="#a8842c" stroke-width="0.8"/>
+        <text font-family="Georgia, serif" font-size="9" font-weight="700" fill="#0f2b4c" letter-spacing="1.2">
+          <textPath href="#sealArc" startOffset="50%" text-anchor="middle">HIMALAYAN INSTITUTE OF SCIENCE &amp; TECHNOLOGY</textPath>
+        </text>
+        <text font-family="Georgia, serif" font-size="8" fill="#0f2b4c" letter-spacing="1.1">
+          <textPath href="#sealArcBottom" startOffset="50%" text-anchor="middle">CONTROLLER OF EXAMINATIONS · EST. 1998</textPath>
+        </text>
+        <text x="100" y="98" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="700" fill="#0f2b4c" letter-spacing="1">HIST</text>
+        <line x1="72" y1="108" x2="128" y2="108" stroke="#a8842c" stroke-width="1.2"/>
+        <text x="100" y="126" text-anchor="middle" font-family="Georgia, serif" font-size="8" fill="#0f2b4c" letter-spacing="2">OFFICIAL SEAL</text>
+      </svg>
+      <div class="issued">Raised Seal Applied</div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="legal">
+      <strong>NOTICE:</strong> This transcript is confidential and is released only upon the written
+      request of the student or as permitted by law. Alteration or reproduction of this document
+      is a violation of Institute policy and may constitute a criminal offense.
+      Official transcripts are invalid without the raised seal of the
+      Himalayan Institute of Science &amp; Technology.
+    </div>
+    <div class="doc-id">
+      DOC ID: <span id="pdfDocIdShort">—</span><br>
+      Verify: viewblock.io/arweave
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

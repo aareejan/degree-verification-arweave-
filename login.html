@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Degree Verification System • Login</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&family=Tangerine:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1b3a6b;
+    --navy-soft:#2c5282;
+    --blue-accent:#4a90c2;
+    --blue-pale:#eaf3fa;
+    --blue-mist:#f4f8fc;
+    --gold:#c8a24c;
+    --gold-soft:#fdf6e3;
+    --ink:#1a2c3e;
+    --muted:#6b7d92;
+    --border:#dce6f0;
+    --danger:#b3261e;
+    --danger-bg:#fdf2f1;
+    --danger-border:#f4c7c2;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  body{
+    font-family:'Jost',sans-serif;
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:2rem;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(74,144,194,.10), transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(200,162,76,.08), transparent 45%),
+      linear-gradient(160deg, #f7fafd 0%, #eef5fb 55%, #e6eff8 100%);
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* Soft decorative blobs */
+  body::before,
+  body::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    filter:blur(60px);
+    pointer-events:none;
+    z-index:0;
+  }
+  body::before{
+    width:420px; height:420px;
+    background:rgba(74,144,194,.18);
+    top:-120px; left:-120px;
+  }
+  body::after{
+    width:380px; height:380px;
+    background:rgba(200,162,76,.14);
+    bottom:-140px; right:-140px;
+  }
+
+  .container{
+    position:relative;
+    z-index:1;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-radius:1.6rem;
+    max-width:440px;
+    width:100%;
+    padding:2.75rem 2.5rem 2.4rem;
+    box-shadow:
+      0 30px 60px -20px rgba(27,58,107,.18),
+      0 12px 30px -12px rgba(27,58,107,.10),
+      0 0 0 1px rgba(220,230,240,.9) inset;
+    animation:rise .55s cubic-bezier(.2,.7,.3,1);
+  }
+
+  @keyframes rise{
+    from{ opacity:0; transform:translateY(16px) scale(.985); }
+    to{ opacity:1; transform:translateY(0) scale(1); }
+  }
+
+  /* ============ Crest ============ */
+  .crest-wrap{
+    display:flex;
+    justify-content:center;
+    margin-bottom:1rem;
+  }
+  .crest{
+    width:64px;
+    height:64px;
+    filter:drop-shadow(0 6px 12px rgba(27,58,107,.12));
+  }
+
+  /* ============ Brand ============ */
+  .brand{
+    text-align:center;
+    margin-bottom:2rem;
+  }
+  .brand-logo{
+    font-family:'Tangerine',cursive;
+    font-weight:700;
+    font-size:3rem;
+    line-height:1;
+    color:var(--navy);
+    letter-spacing:.5px;
+  }
+  .brand-sub{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-size:.98rem;
+    color:var(--muted);
+    margin-top:.35rem;
+    letter-spacing:.03em;
+    position:relative;
+    display:inline-block;
+  }
+  .brand-sub::before,
+  .brand-sub::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    width:34px;
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+  .brand-sub::before{ right:100%; margin-right:.6rem; }
+  .brand-sub::after{ left:100%; margin-left:.6rem; }
+
+  /* ============ Error ============ */
+  .error-box{
+    background:var(--danger-bg);
+    border:1px solid var(--danger-border);
+    color:var(--danger);
+    border-radius:12px;
+    padding:.8rem 1rem;
+    font-size:.88rem;
+    margin-bottom:1.2rem;
+    display:none;
+    align-items:center;
+    gap:.6rem;
+    animation:shake .4s;
+  }
+  .error-box.show{ display:flex; }
+  .error-box i{ font-size:1rem; flex:0 0 auto; }
+
+  @keyframes shake{
+    0%,100%{ transform:translateX(0); }
+    25%{ transform:translateX(-6px); }
+    75%{ transform:translateX(6px); }
+  }
+
+  /* ============ Fields ============ */
+  .field{ margin-bottom:1.15rem; }
+
+  label{
+    display:block;
+    font-weight:500;
+    color:var(--navy);
+    font-size:.82rem;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    margin-bottom:.45rem;
+  }
+  label i{
+    color:var(--blue-accent);
+    width:1.15rem;
+    font-size:.9rem;
+  }
+
+  .input-wrap{
+    position:relative;
+  }
+
+  input{
+    width:100%;
+    padding:.9rem 1rem .9rem 2.65rem;
+    border:1px solid var(--border);
+    border-radius:12px;
+    font-family:'Jost',sans-serif;
+    font-size:.95rem;
+    background:var(--blue-mist);
+    color:var(--ink);
+    transition:border-color .18s, box-shadow .18s, background .18s;
+  }
+  input::placeholder{ color:#9aabc0; }
+  input:hover{ background:#fff; }
+  input:focus{
+    outline:none;
+    border-color:var(--blue-accent);
+    background:#fff;
+    box-shadow:0 0 0 4px rgba(74,144,194,.14);
+  }
+
+  /* Icon inside the input */
+  .input-icon{
+    position:absolute;
+    top:50%;
+    left:1rem;
+    transform:translateY(-50%);
+    color:var(--blue-accent);
+    font-size:.95rem;
+    pointer-events:none;
+    transition:color .18s;
+  }
+  input:focus + .input-icon,
+  .input-wrap:focus-within .input-icon{
+    color:var(--navy);
+  }
+
+  /* Password reveal */
+  .toggle-pw{
+    position:absolute;
+    top:50%;
+    right:.75rem;
+    transform:translateY(-50%);
+    background:transparent;
+    border:none;
+    color:var(--muted);
+    font-size:.95rem;
+    cursor:pointer;
+    padding:.35rem .45rem;
+    border-radius:8px;
+    transition:color .15s, background .15s;
+  }
+  .toggle-pw:hover{
+    color:var(--navy);
+    background:var(--blue-pale);
+  }
+  input[type="password"],
+  input[type="text"].pw-visible{
+    padding-right:2.9rem;
+  }
+
+  /* ============ Button ============ */
+  button[type="submit"]{
+    background:linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
+    color:#fff;
+    font-weight:600;
+    padding:1rem;
+    border:none;
+    border-radius:12px;
+    font-size:1rem;
+    letter-spacing:.04em;
+    cursor:pointer;
+    width:100%;
+    margin-top:.6rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:.55rem;
+    font-family:'Jost',sans-serif;
+    box-shadow:0 10px 22px -8px rgba(27,58,107,.55);
+    transition:transform .15s, box-shadow .2s, background .2s;
+  }
+  button[type="submit"]:hover:not(:disabled){
+    transform:translateY(-1px);
+    box-shadow:0 14px 26px -8px rgba(27,58,107,.6);
+  }
+  button[type="submit"]:active:not(:disabled){
+    transform:translateY(0);
+    box-shadow:0 8px 18px -8px rgba(27,58,107,.5);
+  }
+  button[type="submit"]:disabled{
+    opacity:.65;
+    cursor:not-allowed;
+    transform:none;
+    box-shadow:0 8px 18px -10px rgba(27,58,107,.35);
+  }
+
+  /* ============ Footer ============ */
+  .form-footer{
+    margin-top:1.6rem;
+    padding-top:1.1rem;
+    border-top:1px dashed var(--border);
+    text-align:center;
+    font-size:.78rem;
+    color:var(--muted);
+    letter-spacing:.02em;
+  }
+  .form-footer .secure{
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+  }
+  .form-footer i{
+    color:#1c7a45;
+    font-size:.75rem;
+  }
+
+  /* ============ Responsive ============ */
+  @media (max-width:520px){
+    body{ padding:1.25rem; }
+    .container{ padding:2.2rem 1.6rem 1.9rem; border-radius:1.3rem; }
+    .brand-logo{ font-size:2.6rem; }
+    .brand-sub{ font-size:.9rem; }
+    .brand-sub::before,
+    .brand-sub::after{ width:22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Crest -->
+  <div class="crest-wrap">
+    <svg class="crest" viewBox="0 0 100 122" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="crestGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2c5282"/>
+          <stop offset="100%" stop-color="#1b3a6b"/>
+        </linearGradient>
+      </defs>
+      <path d="M50 4 L94 20 V62 C94 90 75 108 50 118 C25 108 6 90 6 62 V20 Z"
+            fill="url(#crestGrad)" stroke="#c8a24c" stroke-width="2.5"/>
+      <path d="M50 13 L85 26 V62 C85 85 70 100 50 109 C30 100 15 85 15 62 V26 Z"
+            fill="none" stroke="#c8a24c" stroke-width="1" opacity=".8"/>
+      <text x="50" y="58" text-anchor="middle"
+            font-family="Georgia, serif" font-size="24" font-weight="700"
+            fill="#f4e6c2" letter-spacing="1">HIST</text>
+      <line x1="26" y1="68" x2="74" y2="68" stroke="#c8a24c" stroke-width="1"/>
+      <text x="50" y="85" text-anchor="middle"
+            font-family="Georgia, serif" font-size="11"
+            fill="#e8d9b0" letter-spacing="3">1998</text>
+    </svg>
+  </div>
+
+  <!-- Brand -->
+  <div class="brand">
+    <div class="brand-logo">Himalayan Institute</div>
+    <div class="brand-sub">Degree Verification Portal</div>
+  </div>
+
+  <!-- Error -->
+  <div class="error-box" id="errorBox">
+    <i class="fas fa-exclamation-circle"></i>
+    <span id="errorText"></span>
+  </div>
+
+  <!-- Form -->
+  <form id="loginForm" autocomplete="on">
+
+    <div class="field">
+      <label for="username"><i class="fas fa-user"></i> Username</label>
+      <div class="input-wrap">
+        <input type="text" name="username" id="username"
+               required autocomplete="username" autofocus
+               placeholder="Enter your username">
+        <i class="fas fa-user input-icon" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="password"><i class="fas fa-lock"></i> Password</label>
+      <div class="input-wrap">
+        <input type="password" name="password" id="password"
+               required autocomplete="current-password"
+               placeholder="Enter your password">
+        <i class="fas fa-lock input-icon" aria-hidden="true"></i>
+        <button type="button" class="toggle-pw" id="togglePw"
+                aria-label="Show password" tabindex="-1">
+          <i class="fas fa-eye"></i>
+        </button>
+      </div>
+    </div>
+
+    <button type="submit" id="loginBtn">
+      <i class="fas fa-right-to-bracket"></i> Sign In
+    </button>
+  </form>
+
+  <!-- Footer -->
+  <div class="form-footer">
+    <span class="secure">
+      <i class="fas fa-shield-halved"></i>
+      Secure session · Credentials are hashed with bcrypt
+    </span>
+  </div>
+
+</div>
+
+<script>
+  const form = document.getElementById('loginForm');
+  const btn  = document.getElementById('loginBtn');
+  const eb   = document.getElementById('errorBox');
+  const et   = document.getElementById('errorText');
+  const pw   = document.getElementById('password');
+  const togglePw = document.getElementById('togglePw');
+
+  function showError(msg){
+    et.textContent = msg;
+    eb.classList.add('show');
+    // restart shake animation
+    eb.style.animation = 'none';
+    void eb.offsetWidth;
+    eb.style.animation = '';
+  }
+
+  /* Password visibility toggle */
+  togglePw.addEventListener('click', () => {
+    const isHidden = pw.type === 'password';
+    pw.type = isHidden ? 'text' : 'password';
+    togglePw.querySelector('i').className = isHidden ? 'fas fa-eye-slash' : 'fas fa-eye';
+    togglePw.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+    pw.focus();
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    eb.classList.remove('show');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in…';
+
+    try {
+      const res = await fetch('/login', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: document.getElementById('username').value.trim(),
+          password: pw.value
+        })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'Login failed');
+      btn.innerHTML = '<i class="fas fa-check"></i> Redirecting…';
+      window.location.href = data.redirect || '/admin';
+    } catch (err) {
+      showError(err.message || 'Login failed');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-right-to-bracket"></i> Sign In';
+      pw.select();
+    }
+  });
+</script>
+</body>
+</html>

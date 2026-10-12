@@ -1,0 +1,19 @@
+{
+  "users": [
+    {
+      "id": "nrl",
+      "username": "user",
+      "passwordHash": "$2a$10$VdrpHnUBZn0ulnBaRscgTu7VGmBo8v2N1OlYOy0/k4tGSl3QtjCsa",
+      "dir": "users/Degree-Deployment",
+      "walletFile": "wallet.json",
+      "parentFolderId": "61a8c9bb-58b3-4e15-93b9-1b291e4976ae",
+      "adminHtml": "admin.html",
+      "templates": {
+        "degree": {
+          "viewerTxId": "yOZQADohc770vOP_6426P3XWXpj1huDA-vyWlABEMYQ",
+          "pdfHtml": "png-certificate.html"
+        }
+      }
+    }
+  ]
+}

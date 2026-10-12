@@ -1,0 +1,19 @@
+{
+  "name": "degree-verification-system",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.3.0",
+    "express": "^4.22.2",
+    "express-session": "^1.18.0",
+    "multer": "^1.4.5-lts.1",
+    "playwright": "^1.42.0",
+    "qrcode": "^1.5.4",
+    "sharp": "^0.33.5",
+    "uuid": "^14.0.1"
+  }
+}
