@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Degree Deployment Portal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&family=Tangerine:wght@700&display=swap" rel="stylesheet" />
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Jost',sans-serif; background:linear-gradient(145deg,#dce8f2,#c2d6e8); min-height:100vh; padding:2rem 1rem; }
+  .wrap { max-width:1100px; margin:0 auto; }
+  .card { background:#fff; border-radius:1.6rem; box-shadow:0 15px 30px rgba(0,0,0,.08); padding:2rem; }
+  .top { display:flex; justify-content:flex-end; margin-bottom:1rem; }
+  .logout { background:#1b3a6b; color:#fff; text-decoration:none; padding:.6rem 1.2rem; border-radius:30px; font-size:.9rem; font-weight:500; display:inline-flex; gap:.5rem; align-items:center; }
+  .logout:hover { background:#132a4f; }
+  .brand { text-align:center; margin-bottom:2rem; }
+  .brand-logo { font-family:'Tangerine',cursive; font-size:3.2rem; color:#1b3a6b; }
+  .brand-sub { font-family:'Cormorant Garamond',serif; font-style:italic; color:#4a5f7e; border-top:1px dashed #b6c5da; display:inline-block; padding-top:.25rem; margin-top:.25rem; }
+  h2 { text-align:center; color:#1b2c4a; font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:600; margin-bottom:.5rem; }
+  .desc { text-align:center; color:#4a5f7e; font-size:.9rem; margin-bottom:1.2rem; }
+  label.type-label { display:block; color:#1b2c4a; font-weight:500; font-size:.9rem; margin-bottom:.4rem; }
+  label.type-label i { color:#2b6cb0; width:1.2rem; }
+  select { width:100%; padding:.9rem 1rem; border:1px solid #cfd9e6; border-radius:12px; font-family:'Jost',sans-serif; font-size:.95rem; background:#f4f8fd; color:#1b2c4a; cursor:pointer; }
+  select:focus { outline:none; border-color:#2b6cb0; box-shadow:0 0 0 3px rgba(43,108,176,.15); }
+  #formArea { display:none; margin-top:2rem; border-top:1px solid #cfd9e6; padding-top:2rem; }
+  iframe { width:100%; border:none; min-height:1600px; border-radius:14px; background:#fff; }
+  .empty { margin-top:2rem; padding:2rem; text-align:center; color:#4a5f7e; background:#f4f8fd; border:1px dashed #b6c5da; border-radius:14px; }
+  .empty i { font-size:2rem; color:#2b6cb0; margin-bottom:.7rem; }
+  @media (max-width:700px){ .card{padding:1rem} iframe{min-height:2000px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="top">
+      <a href="/logout" class="logout"><i class="fas fa-right-from-bracket"></i> Logout</a>
+    </div>
+    <div class="brand">
+      <div class="brand-logo">Himalayan Institute</div>
+      <div class="brand-sub">Degree Deployment Portal</div>
+    </div>
+    <h2>Select Certificate Type</h2>
+    <p class="desc">Choose the type of degree certificate you want to deploy.</p>
+    <label class="type-label"><i class="fas fa-layer-group"></i> Certificate Type</label>
+    <select id="certificateType">
+      <option value="">— Select Certificate Type —</option>
+      <option value="degree">Degree Certificate</option>
+    </select>
+    <div id="emptyMessage" class="empty">
+      <i class="fas fa-certificate"></i>
+      <p>Please select a certificate type above to continue.</p>
+    </div>
+    <div id="formArea">
+      <iframe id="formFrame" title="Deployment Form"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+const sel = document.getElementById('certificateType');
+const area = document.getElementById('formArea');
+const frame = document.getElementById('formFrame');
+const empty = document.getElementById('emptyMessage');
+/* FIXED: file is degree-form.html, not degree.html */
+const map = { "degree": "/degree-form.html" };
+sel.addEventListener('change', function(){
+  const url = map[this.value];
+  if (url) { frame.src = url; area.style.display = 'block'; empty.style.display = 'none'; }
+  else { frame.src = ''; area.style.display = 'none'; empty.style.display = 'block'; }
+});
+window.addEventListener('message', e => {
+  if (e.data?.type === 'resize-certificate-form' && e.data.height)
+    frame.style.height = e.data.height + 'px';
+});
+</script>
+</body>
+</html>

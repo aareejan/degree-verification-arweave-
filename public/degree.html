@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Degree Certificate Deployment</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@400;500;600&family=Tangerine:wght@700&display=swap" rel="stylesheet" />
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Jost',sans-serif; background:#f4f7fc; padding:1rem; }
+  .container { max-width:820px; margin:0 auto; background:#fff; border-radius:1.5rem; padding:1.8rem; box-shadow:0 8px 30px rgba(0,0,0,.08); }
+  .brand { text-align:center; margin-bottom:1.5rem; }
+  .brand h1 { font-family:'Tangerine',cursive; font-size:2.8rem; color:#1b3a6b; }
+  .brand p { font-family:'Cormorant Garamond',serif; font-style:italic; color:#4a5f7e; border-top:1px dashed #cfd9e6; display:inline-block; padding-top:.2rem; }
+  .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .full { grid-column:1/-1; }
+  label { display:block; font-weight:500; font-size:.85rem; color:#1b2c4a; margin-bottom:.2rem; }
+  label i { color:#2b6cb0; width:1.2rem; }
+  input, textarea { width:100%; padding:.7rem 1rem; border:1px solid #cfd9e6; border-radius:10px; font-size:.9rem; background:#f4f8fd; transition:.2s; font-family:'Jost',sans-serif; }
+  input:focus, textarea:focus { outline:none; border-color:#2b6cb0; box-shadow:0 0 0 3px rgba(43,108,176,.15); background:#fff; }
+  textarea { min-height:60px; resize:vertical; }
+  .file-wrap { display:flex; align-items:center; gap:.5rem; }
+  .file-name { font-size:.8rem; color:#4a5f7e; max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .btn { background:#1b3a6b; color:#fff; font-weight:600; padding:.9rem; border:none; border-radius:12px; font-size:1rem; cursor:pointer; width:100%; margin-top:1.5rem; display:flex; align-items:center; justify-content:center; gap:.5rem; transition:.2s; }
+  .btn:hover { background:#132a4f; }
+  .btn:disabled { opacity:.6; cursor:not-allowed; }
+  #progress { display:none; margin:1.5rem 0; }
+  .steps { display:flex; justify-content:space-between; margin-bottom:.5rem; }
+  .step { text-align:center; font-size:.7rem; color:#4a5f7e; flex:1; }
+  .step i { display:block; width:28px; height:28px; line-height:28px; border-radius:50%; background:#fff; border:2px solid #cfd9e6; margin:0 auto .2rem; font-size:.75rem; color:#4a5f7e; }
+  .step.done i { background:#2A7F4A; border-color:#2A7F4A; color:#fff; }
+  .step.active i { border-color:#2b6cb0; color:#2b6cb0; background:#f4f8fd; }
+  #status { text-align:center; font-size:.85rem; color:#4a5f7e; font-weight:500; }
+  .success { background:#eafaf1; border-radius:12px; padding:1.2rem; text-align:center; border:1px solid #a3d9b1; margin-top:1rem; }
+  .success h3 { color:#1c7a45; margin-bottom:.6rem; }
+  .success a { color:#1b3a6b; font-weight:600; word-break:break-all; }
+  .result-row { display:flex; flex-wrap:wrap; gap:1rem; justify-content:center; margin:1rem 0; }
+  .result-row img { max-width:180px; border-radius:10px; border:1px solid #cfd9e6; }
+  .btn-group { display:flex; flex-wrap:wrap; justify-content:center; gap:.6rem; }
+  .btn-group a { background:#1b3a6b; color:#fff; padding:.5rem 1.2rem; border-radius:30px; text-decoration:none; font-weight:500; font-size:.9rem; }
+  .btn-group a:hover { background:#132a4f; }
+  @media (max-width:700px){ .form-grid{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">
+    <h1>Himalayan Institute</h1>
+    <p>Degree Certificate Deployment</p>
+  </div>
+
+  <form id="deployForm" enctype="multipart/form-data">
+    <input type="hidden" name="templateType" value="degree">
+    <div class="form-grid">
+      <div><label><i class="fas fa-hashtag"></i> Certificate No. *</label><input type="text" name="certNo" required placeholder="HIST-2026-0001"></div>
+      <div><label><i class="fas fa-calendar"></i> Issue Date *</label><input type="date" name="issueDate" required></div>
+
+      <div><label><i class="fas fa-user"></i> Student Full Name *</label><input type="text" name="studentName" required placeholder="AARAV SHARMA"></div>
+      <div><label><i class="fas fa-user-tie"></i> Father's Name</label><input type="text" name="fatherName" placeholder="RAM SHARMA"></div>
+
+      <div><label><i class="fas fa-user-friends"></i> Mother's Name</label><input type="text" name="motherName" placeholder="SITA SHARMA"></div>
+      <div><label><i class="fas fa-birthday-cake"></i> Date of Birth</label><input type="date" name="dob"></div>
+
+      <div><label><i class="fas fa-id-card"></i> Roll Number</label><input type="text" name="rollNo" placeholder="2020-CS-0457"></div>
+      <div><label><i class="fas fa-id-badge"></i> Registration No.</label><input type="text" name="regNo" placeholder="5-2-50-901-2020"></div>
+
+      <div class="full"><label><i class="fas fa-graduation-cap"></i> Degree Name *</label><input type="text" name="degreeName" required placeholder="Bachelor of Science in Computer Science"></div>
+
+      <div><label><i class="fas fa-book"></i> Major</label><input type="text" name="major" placeholder="Computer Science"></div>
+      <div><label><i class="fas fa-star"></i> GPA</label><input type="text" name="gpa" placeholder="3.65 / 4.00"></div>
+
+      <div><label><i class="fas fa-percent"></i> Percentage</label><input type="text" name="percentage" placeholder="78.5%"></div>
+      <div><label><i class="fas fa-calendar-check"></i> Passing Year</label><input type="text" name="passYear" placeholder="2024"></div>
+
+      <div class="full"><label><i class="fas fa-camera"></i> Student Photo *</label><div class="file-wrap"><input type="file" name="photoImage" accept="image/*" required id="photoInput"><span class="file-name" id="photoName"></span></div></div>
+    </div>
+
+    <button type="submit" class="btn" id="submitBtn"><i class="fas fa-rocket"></i> Deploy Degree Certificate</button>
+  </form>
+
+  <div id="progress">
+    <div class="steps" id="steps">
+      <div class="step" data-step="0"><i class="fas fa-compress"></i> Compress</div>
+      <div class="step" data-step="1"><i class="fas fa-upload"></i> Upload</div>
+      <div class="step" data-step="2"><i class="fas fa-file-alt"></i> Metadata</div>
+      <div class="step" data-step="3"><i class="fas fa-list-alt"></i> Manifest</div>
+      <div class="step" data-step="4"><i class="fas fa-qrcode"></i> QR</div>
+      <div class="step" data-step="5"><i class="fas fa-file-pdf"></i> PDF</div>
+      <div class="step" data-step="6"><i class="fas fa-check-circle"></i> Done</div>
+    </div>
+    <div id="status"></div>
+  </div>
+
+  <div id="result"></div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const form = $('deployForm');
+const submit = $('submitBtn');
+const result = $('result');
+const progress = $('progress');
+const status = $('status');
+const photo = $('photoInput');
+const steps = [...document.querySelectorAll('.step')];
+const totalSteps = 7;
+
+photo.onchange = () => $('photoName').textContent = photo.files[0]?.name || '';
+
+function esc(s){ return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+
+function resetProgress(){
+  const icons = ['fa-compress','fa-upload','fa-file-alt','fa-list-alt','fa-qrcode','fa-file-pdf','fa-check-circle'];
+  steps.forEach((s, i) => { s.classList.remove('done','active'); s.querySelector('i').className = 'fas ' + icons[i]; });
+}
+
+function showError(e){ result.innerHTML = `<p style="color:#c0392b;margin-top:1rem;text-align:center;"><i class="fas fa-exclamation-circle"></i> ${esc(e.message||e)}</p>`; }
+
+form.onsubmit = async (e) => {
+  e.preventDefault();
+  if (!photo.files[0]) return showError(new Error('Please select a student photo.'));
+  submit.disabled = true;
+  result.innerHTML = '';
+  progress.style.display = 'block';
+  resetProgress();
+  try {
+    const fd = new FormData(form);
+    const res = await fetch('/deploy', { method: 'POST', body: fd });
+    if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Deployment failed');
+    const { jobId } = await res.json();
+
+    for (;;) {
+      const job = await (await fetch(`/progress/${jobId}`)).json();
+      steps.forEach(s => {
+        const i = +s.dataset.step;
+        s.classList.toggle('done', job.completed.includes(i));
+        s.classList.toggle('active', job.current === i && !job.completed.includes(i));
+        if (job.completed.includes(i)) s.querySelector('i').className = 'fas fa-check-circle';
+      });
+      if (job.finished) {
+        steps.forEach(s => { s.classList.add('done'); s.classList.remove('active'); s.querySelector('i').className = 'fas fa-check-circle'; });
+        if (job.error) throw new Error(job.error);
+        if (!job.manifestUrl) throw new Error('Unknown deployment error');
+        result.innerHTML = `
+          <div class="success">
+            <h3><i class="fas fa-check-circle"></i> Degree Certificate Deployed</h3>
+            <p><strong>Arweave Verification URL:</strong><br><a href="${job.manifestUrl}" target="_blank">${job.manifestUrl}</a></p>
+            <div class="result-row">
+              <div><p><strong>QR Code</strong></p><img src="${job.qrCode}" alt="QR"></div>
+            </div>
+            <div class="btn-group">
+              <a href="${job.manifestUrl}" target="_blank"><i class="fas fa-external-link-alt"></i> Open Verification Page</a>
+              <a href="${job.pdfUrl}" download="${job.pdfFilename}"><i class="fas fa-download"></i> Download PDF</a>
+            </div>
+          </div>`;
+        break;
+      }
+      await new Promise(r => setTimeout(r, 800));
+    }
+  } catch (err) {
+    showError(err);
+    status.textContent = '';
+  } finally {
+    submit.disabled = false;
+    submit.innerHTML = '<i class="fas fa-rocket"></i> Deploy Degree Certificate';
+    progress.style.display = 'none';
+  }
+};
+
+// Auto-resize
+const resize = () => parent.postMessage({ type:'resize-certificate-form', height: document.body.scrollHeight + 40 }, '*');
+new ResizeObserver(resize).observe(document.body);
+setTimeout(resize, 200);
+</script>
+</body>
+</html>

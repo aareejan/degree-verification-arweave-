@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Degree Certificate • Deployment</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@400;500;600&family=Tangerine:wght@700&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/argon2-browser@1.18.0/dist/argon2-bundled.min.js"></script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Jost',sans-serif;background:#f4f7fc;padding:1rem;}
+  .container{max-width:1100px;margin:0 auto;background:#fff;border-radius:1.5rem;padding:1.8rem;box-shadow:0 8px 30px rgba(0,0,0,.08);}
+  .brand{text-align:center;margin-bottom:1.5rem;}
+  .brand h1{font-family:'Tangerine',cursive;font-size:2.8rem;color:#2C7DA0;}
+  .brand p{font-family:'Cormorant Garamond',serif;font-style:italic;color:#2C4A6E;border-top:1px dashed #D9EDF2;display:inline-block;padding-top:.2rem;}
+  .section-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#1A2C3E;margin:1.4rem 0 .6rem;padding-bottom:.35rem;border-bottom:1px solid #D9EDF2;letter-spacing:.5px;}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
+  .full{grid-column:1/-1;}
+  label{display:block;font-weight:500;font-size:.82rem;color:#1A2C3E;margin-bottom:.2rem;}
+  label i{color:#2C7DA0;width:1.1rem;}
+  input,select,textarea{width:100%;padding:.65rem .9rem;border:1px solid #CDDFE7;border-radius:10px;font-size:.88rem;font-family:inherit;background:#EFF6FA;transition:.2s;}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:#2C7DA0;box-shadow:0 0 0 3px rgba(44,125,160,.15);}
+  input[readonly]{background:#eef1f4;color:#5b6570;cursor:default;}
+  .btn{background:#2C7DA0;color:#fff;font-weight:600;padding:.9rem;border:none;border-radius:12px;font-size:1rem;cursor:pointer;width:100%;margin-top:1.4rem;display:flex;align-items:center;justify-content:center;gap:.5rem;}
+  .btn:hover{background:#1E5A74;}
+  .btn:disabled{opacity:.6;cursor:not-allowed;}
+  .btn-outline{background:#D9EDF2;color:#1A2C3E;font-weight:600;padding:.55rem 1rem;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-size:.85rem;margin-top:.6rem;}
+  .btn-outline:hover{background:#CDDFE7;}
+  .term{border:1px solid #CDDFE7;border-radius:12px;padding:1rem;margin-bottom:1rem;background:#fafcfe;}
+  .term-header{display:grid;grid-template-columns:1.4fr 1fr auto;gap:.5rem;align-items:center;margin-bottom:.7rem;}
+  .term-header input{padding:.5rem .7rem;font-size:.85rem;}
+  .remove-term{background:#fdecea;color:#b3261e;border:1px solid #f3b7ae;width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:1.1rem;line-height:1;}
+  .courses-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+  .courses-table th{text-align:left;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#5b6570;padding:.35rem .4rem;font-weight:700;}
+  .courses-table td{padding:.28rem .3rem;}
+  .courses-table input,.courses-table select{padding:.42rem .55rem;font-size:.82rem;}
+  .remove-course{background:#fdecea;color:#b3261e;border:1px solid #f3b7ae;width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:.9rem;line-height:1;}
+  .add-course{background:#e6f4ec;color:#1c7a45;border:1px solid #a3d9b1;padding:.4rem .8rem;border-radius:8px;cursor:pointer;font-family:inherit;font-size:.78rem;font-weight:600;}
+  #progress{display:none;margin:1.5rem 0;}
+  .steps{display:flex;justify-content:space-between;position:relative;margin-bottom:.5rem;flex-wrap:wrap;gap:6px;}
+  .step{position:relative;z-index:2;text-align:center;flex:1 0 auto;font-size:.6rem;color:#2C4A6E;min-width:52px;}
+  .step i{display:block;width:28px;height:28px;line-height:28px;border-radius:50%;background:#fff;border:2px solid #CDDFE7;margin:0 auto .2rem;font-size:.72rem;color:#2C4A6E;transition:.2s;}
+  .step.done i{background:#2A7F4A;border-color:#2A7F4A;color:#fff;}
+  .step.active i{border-color:#2C7DA0;color:#2C7DA0;background:#EFF6FA;}
+  #status{text-align:center;font-size:.85rem;color:#2C4A6E;font-weight:500;margin-top:.4rem;}
+  .success{background:#eafaf1;border-radius:12px;padding:1.2rem;text-align:center;border:1px solid #a3d9b1;margin-top:1rem;}
+  .success a{color:#2C7DA0;font-weight:600;word-break:break-all;}
+  .result-row{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin:1rem 0;}
+  .result-row img{max-width:200px;border-radius:10px;border:1px solid #CDDFE7;}
+  .btn-group{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;}
+  .btn-group a{background:#2C7DA0;color:#fff;padding:.5rem 1.2rem;border-radius:30px;text-decoration:none;font-weight:500;font-size:.9rem;display:inline-flex;align-items:center;gap:.4rem;}
+  .btn-group a:hover{background:#1E5A74;}
+  .records{margin-top:2rem;border-top:1px solid #D9EDF2;padding-top:1.4rem;}
+  .records h3{font-family:'Cormorant Garamond',serif;color:#1A2C3E;margin-bottom:1rem;font-size:1.15rem;display:flex;align-items:center;gap:.5rem;}
+  .records h3 i{color:#2C7DA0;}
+  .table-wrap{overflow-x:auto;border:1px solid #D9EDF2;border-radius:12px;}
+  table.rec{width:100%;border-collapse:collapse;font-size:.82rem;}
+  table.rec th,table.rec td{padding:.55rem .85rem;text-align:left;border-bottom:1px solid #EFF6FA;white-space:nowrap;}
+  table.rec th{background:#EFF6FA;color:#2C4A6E;font-weight:600;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;}
+  table.rec tbody tr:last-child td{border-bottom:none;}
+  table.rec td a{color:#2C7DA0;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:.35rem;}
+  table.rec td a:hover{text-decoration:underline;}
+  .empty-row td{text-align:center;color:#2C4A6E;padding:1.1rem !important;}
+  .badge{display:inline-block;padding:.2rem .6rem;border-radius:20px;font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;}
+  .badge.ok{background:#e6f4ec;color:#1c7a45;border:1px solid #a3d9b1;}
+  .badge.revoked{background:#fdecea;color:#b3261e;border:1px solid #f3b7ae;}
+  .revoke-btn{background:#fdecea;color:#b3261e;border:1px solid #f3b7ae;padding:.35rem .75rem;border-radius:8px;font-family:inherit;font-size:.75rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:.35rem;transition:.15s;}
+  .revoke-btn:hover{background:#f9d3ce;}
+  .revoke-btn:disabled{opacity:.5;cursor:not-allowed;}
+  .pdf-btn{background:#EFF6FA;color:#2C7DA0;border:1px solid #CDDFE7;padding:.35rem .75rem;border-radius:8px;font-family:inherit;font-size:.75rem;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.35rem;transition:.15s;}
+  .pdf-btn:hover{background:#D9EDF2;}
+  .modal-overlay{position:fixed;inset:0;background:rgba(26,44,62,.55);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:1000;padding:1rem;}
+  .modal-overlay.show{display:flex;}
+  .modal{background:#fff;border-radius:16px;padding:1.8rem;max-width:440px;width:100%;box-shadow:0 20px 50px rgba(0,0,0,.25);animation:pop .18s ease-out;}
+  @keyframes pop{from{transform:scale(.96);opacity:0;}to{transform:scale(1);opacity:1;}}
+  .modal h3{font-family:'Cormorant Garamond',serif;color:#b3261e;font-size:1.3rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem;}
+  .modal p{font-size:.88rem;color:#2C4A6E;line-height:1.5;margin-bottom:.7rem;}
+  .modal .target{background:#EFF6FA;border-left:3px solid #2C7DA0;padding:.5rem .8rem;border-radius:6px;font-family:'Courier New',monospace;font-size:.78rem;color:#1A2C3E;margin-bottom:.9rem;word-break:break-all;}
+  .modal input[type="password"]{font-size:.95rem;padding:.75rem .9rem;margin-bottom:.9rem;}
+  .modal-actions{display:flex;gap:.6rem;justify-content:flex-end;}
+  .modal-actions button{padding:.6rem 1.1rem;border-radius:10px;font-family:inherit;font-size:.85rem;font-weight:600;cursor:pointer;border:none;}
+  .modal-cancel{background:#EFF6FA;color:#2C4A6E;}
+  .modal-cancel:hover{background:#D9EDF2;}
+  .modal-confirm{background:#b3261e;color:#fff;}
+  .modal-confirm:hover{background:#8c1c16;}
+  .modal-confirm:disabled{opacity:.6;cursor:not-allowed;}
+  .modal-msg{margin-top:.8rem;padding:.6rem .8rem;border-radius:8px;font-size:.82rem;display:none;}
+  .modal-msg.show{display:block;}
+  .modal-msg.err{background:#fdecea;color:#b3261e;border:1px solid #f3b7ae;}
+  .modal-msg.ok{background:#eafaf1;color:#1c7a45;border:1px solid #a3d9b1;}
+  @media(max-width:700px){.form-grid{grid-template-columns:1fr;} .term-header{grid-template-columns:1fr;} .courses-table{font-size:.75rem;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="brand">
+    <h1>Himalayan Institute</h1>
+    <p>Degree Certificate • Deployment</p>
+  </div>
+
+  <form id="deployForm">
+
+    <h2 class="section-title"><i class="fas fa-user-shield"></i> Student Identity — hashed only, never stored</h2>
+    <div class="form-grid">
+      <div><label><i class="fas fa-user"></i> Full Name *</label><input type="text" id="studentName" required placeholder="AARAV SHARMA"></div>
+      <div><label><i class="fas fa-hashtag"></i> Symbol Number *</label><input type="text" id="symbolNo" required placeholder="2081-0457"></div>
+      <div><label><i class="fas fa-calendar"></i> Date of Birth *</label><input type="text" id="dob" required placeholder="2003-06-14"></div>
+      <div><label><i class="fas fa-fingerprint"></i> Argon2id Hash</label><input type="text" id="identityHash" readonly placeholder="computed on submit"></div>
+    </div>
+
+    <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Academic Record</h2>
+    <div class="form-grid">
+      <div class="full"><label><i class="fas fa-book"></i> Programme</label><input type="text" id="programme" value="B.Sc. Computer Science (Hons.)"></div>
+      <div><label><i class="fas fa-university"></i> Faculty</label><input type="text" id="faculty" value="Faculty of Science &amp; Technology"></div>
+      <div><label><i class="fas fa-check-circle"></i> Enrollment Status</label><input type="text" id="enrollmentStatus" value="Graduated — Degree Awarded"></div>
+      <div><label><i class="fas fa-calendar-check"></i> Date Issued</label><input type="text" id="dateIssued" placeholder="09 October 2026"></div>
+      <div><label><i class="fas fa-award"></i> Academic Standing</label><input type="text" id="academicStanding" value="Good Standing"></div>
+    </div>
+
+    <h2 class="section-title"><i class="fas fa-list-ol"></i> Terms &amp; Courses</h2>
+    <div id="termsContainer"></div>
+    <button type="button" id="addTermBtn" class="btn-outline"><i class="fas fa-plus"></i> Add Term</button>
+
+    <button type="submit" class="btn" id="submitBtn"><i class="fas fa-rocket"></i> Deploy Degree Certificate</button>
+  </form>
+
+  <div id="progress">
+    <div class="steps">
+      <div class="step" data-step="0"><i class="fas fa-fingerprint"></i> Hash</div>
+      <div class="step" data-step="1"><i class="fas fa-file-code"></i> JSON</div>
+      <div class="step" data-step="2"><i class="fas fa-cloud-upload-alt"></i> Upload</div>
+      <div class="step" data-step="3"><i class="fas fa-list-alt"></i> Manifest</div>
+      <div class="step" data-step="4"><i class="fas fa-qrcode"></i> QR</div>
+      <div class="step" data-step="5"><i class="fas fa-check-circle"></i> Done</div>
+    </div>
+    <div id="status"></div>
+  </div>
+
+  <div id="result"></div>
+
+  <div class="records">
+    <h3><i class="fas fa-table-list"></i> Deployed Degrees</h3>
+    <div class="table-wrap">
+      <table class="rec">
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Student Name</th>
+            <th>Programme</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Arweave Link</th>
+            <th>Certificate PDF</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="degreeRows">
+          <tr class="empty-row"><td colspan="8">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal-overlay" id="revokeModal">
+  <div class="modal">
+    <h3><i class="fas fa-triangle-exclamation"></i> Confirm Revocation</h3>
+    <p>You are about to permanently revoke this degree. This action will be published to Arweave and cannot be undone.</p>
+    <div class="target" id="revokeTarget">—</div>
+    <label style="font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;">Re-enter your password to confirm</label>
+    <input type="password" id="revokePassword" placeholder="Password" autocomplete="current-password" />
+    <div class="modal-msg" id="revokeMsg"></div>
+    <div class="modal-actions" style="margin-top:1rem;">
+      <button type="button" class="modal-cancel" id="revokeCancel">Cancel</button>
+      <button type="button" class="modal-confirm" id="revokeConfirm"><i class="fas fa-ban"></i> Revoke</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const ARGON2 = { type: 2, mem: 65536, time: 3, parallelism: 1, hashLen: 32 };
+const ARGON2_SALT = "2f8d1e4c7a9b3e6f0d5c8a1b4e7f2d9c";
+const GRADE_OPTIONS = ["A","A-","B+","B","B-","C+","C","D","F"];
+
+function normalizeName(v){ return String(v||"").trim().replace(/\s+/g," ").toUpperCase(); }
+function normalizeSymbol(v){ return String(v||"").trim().toUpperCase(); }
+function normalizeDob(v){
+  const s = String(v||"").trim();
+  let m = s.match(/^(\d{4})[\-\/\.](\d{1,2})[\-\/\.](\d{1,2})$/);
+  if(m) return m[1]+"-"+m[2].padStart(2,"0")+"-"+m[3].padStart(2,"0");
+  m = s.match(/^(\d{4})(\d{2})(\d{2})$/);
+  if(m) return m[1]+"-"+m[2]+"-"+m[3];
+  return s;
+}
+function buildPreimage(n,s,d){ return normalizeName(n)+"|"+normalizeSymbol(s)+"|"+normalizeDob(d); }
+
+async function argon2idHex(preimage){
+  const r = await window.argon2.hash({
+    pass: preimage, salt: ARGON2_SALT, type: ARGON2.type,
+    mem: ARGON2.mem, time: ARGON2.time,
+    parallelism: ARGON2.parallelism, hashLen: ARGON2.hashLen
+  });
+  return String(r.hashHex || r.hash || "").toLowerCase();
+}
+
+const DEFAULT_TERMS = [
+  { name:"First Semester (2022)", note:"Dean's List", courses:[
+    {code:"ENGL 101",title:"Composition & Rhetoric I",credits:3,grade:"A",major:false},
+    {code:"MATH 141",title:"Calculus I",credits:4,grade:"A-",major:false},
+    {code:"CS 101",title:"Introduction to Programming",credits:4,grade:"A",major:true}
+  ]}
+];
+
+let terms = JSON.parse(JSON.stringify(DEFAULT_TERMS));
+const container = document.getElementById("termsContainer");
+
+function esc(s){ return String(s??"").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+function renderTerms(){
+  container.innerHTML = terms.map((t,ti)=>{
+    const courseRows = t.courses.map((c,ci)=>`
+      <tr>
+        <td><input type="text" data-t="${ti}" data-c="${ci}" data-k="code" value="${esc(c.code)}" placeholder="CS101"></td>
+        <td><input type="text" data-t="${ti}" data-c="${ci}" data-k="title" value="${esc(c.title)}" placeholder="Course title"></td>
+        <td style="width:70px"><input type="number" step="0.5" data-t="${ti}" data-c="${ci}" data-k="credits" value="${c.credits}"></td>
+        <td style="width:80px"><select data-t="${ti}" data-c="${ci}" data-k="grade">${GRADE_OPTIONS.map(g=>`<option value="${g}"${g===c.grade?" selected":""}>${g}</option>`).join("")}</select></td>
+        <td style="width:50px;text-align:center"><input type="checkbox" data-t="${ti}" data-c="${ci}" data-k="major"${c.major?" checked":""} style="width:auto"></td>
+        <td style="width:34px"><button type="button" class="remove-course" data-t="${ti}" data-c="${ci}">×</button></td>
+      </tr>`).join("");
+    return `<div class="term">
+      <div class="term-header">
+        <input type="text" data-t="${ti}" data-k="name" value="${esc(t.name)}" placeholder="Term name">
+        <input type="text" data-t="${ti}" data-k="note" value="${esc(t.note)}" placeholder="Note (e.g. Dean's List)">
+        <button type="button" class="remove-term" data-t="${ti}">×</button>
+      </div>
+      <table class="courses-table">
+        <thead><tr><th>Code</th><th>Title</th><th>Cr</th><th>Grade</th><th>Maj</th><th></th></tr></thead>
+        <tbody>${courseRows}</tbody>
+      </table>
+      <button type="button" class="add-course" data-t="${ti}">+ Add Course</button>
+    </div>`;
+  }).join("");
+  attachTermListeners();
+}
+
+function attachTermListeners(){
+  container.querySelectorAll("input,select").forEach(el=>{
+    el.addEventListener("input", e=>{
+      const t = +e.target.dataset.t, c = e.target.dataset.c, k = e.target.dataset.k;
+      if(c===undefined){ terms[t][k] = e.target.value; }
+      else {
+        const ci = +c;
+        terms[t].courses[ci][k] = (k==="credits") ? Number(e.target.value) : (k==="major" ? e.target.checked : e.target.value);
+      }
+    });
+  });
+  container.querySelectorAll(".remove-term").forEach(b=>b.onclick=()=>{ terms.splice(+b.dataset.t,1); renderTerms(); });
+  container.querySelectorAll(".remove-course").forEach(b=>b.onclick=()=>{ terms[+b.dataset.t].courses.splice(+b.dataset.c,1); renderTerms(); });
+  container.querySelectorAll(".add-course").forEach(b=>b.onclick=()=>{ terms[+b.dataset.t].courses.push({code:"",title:"",credits:3,grade:"A",major:false}); renderTerms(); });
+}
+
+document.getElementById("addTermBtn").onclick = ()=>{
+  terms.push({name:"New Term", note:"", courses:[{code:"",title:"",credits:3,grade:"A",major:false}]});
+  renderTerms();
+};
+renderTerms();
+
+const $ = id => document.getElementById(id);
+const form = $("deployForm"), submit = $("submitBtn"), result = $("result");
+const progress = $("progress"), status = $("status");
+const steps = [...document.querySelectorAll(".step")];
+
+function resetProgress(){ steps.forEach(s=>{ s.classList.remove("done","active"); }); }
+function showError(e){ result.innerHTML = `<p style="color:#c0392b;margin-top:1rem;text-align:center;"><i class="fas fa-exclamation-circle"></i> ${esc(e.message||e)}</p>`; }
+
+form.onsubmit = async e=>{
+  e.preventDefault();
+  submit.disabled = true; result.innerHTML = ""; progress.style.display = "block"; resetProgress();
+
+  try {
+    const name   = $("studentName").value;
+    const symbol = $("symbolNo").value;
+    const dob    = $("dob").value;
+
+    if(!name.trim() || !symbol.trim() || !dob.trim()) throw new Error("Fill all identity fields.");
+
+    status.textContent = "Computing Argon2id hash locally…";
+    const preimage = buildPreimage(name, symbol, dob);
+    let hash;
+    try { hash = await argon2idHex(preimage); }
+    catch(err){ throw new Error("Argon2id failed: " + (err.message||err)); }
+    $("identityHash").value = hash;
+    steps[0].classList.add("done");
+
+    status.textContent = "Building degree JSON…";
+    const payload = {
+      identityHash: hash,
+      studentName:  name.trim(),
+      symbolNo:     symbol.trim(),
+      dob:          normalizeDob(dob),     // save normalized DOB in DB
+      record: {
+        programme: $("programme").value.trim(),
+        faculty:   $("faculty").value.trim(),
+        enrollmentStatus: $("enrollmentStatus").value.trim(),
+        dateIssued: $("dateIssued").value.trim(),
+        academicStanding: $("academicStanding").value.trim()
+      },
+      terms: terms.map(t=>({
+        name: t.name, note: t.note,
+        courses: t.courses.filter(c=>c.code.trim()).map(c=>({
+          code: c.code.trim(), title: c.title.trim(),
+          credits: Number(c.credits)||0, grade: c.grade, major: !!c.major
+        }))
+      })).filter(t=>t.courses.length>0)
+    };
+    if(payload.terms.length === 0) throw new Error("Add at least one term with a course.");
+    steps[1].classList.add("done");
+
+    status.textContent = "Uploading to Arweave…";
+    steps[2].classList.add("active");
+    const res = await fetch("/deploy-degree", {
+      method: "POST",
+      headers: { "Content-Type":"application/json" },
+      body: JSON.stringify(payload)
+    });
+    if(!res.ok) throw new Error((await res.json().catch(()=>({}))).error || "Deployment failed");
+    const { jobId } = await res.json();
+
+    for(;;){
+      const job = await (await fetch(`/progress/${jobId}`)).json();
+      steps.forEach(s=>{
+        const i = +s.dataset.step;
+        s.classList.toggle("done", job.completed.includes(i));
+        s.classList.toggle("active", job.current===i && !job.completed.includes(i));
+      });
+      if(job.finished){
+        steps.forEach(s=>{ s.classList.add("done"); s.classList.remove("active"); });
+        if(job.error) throw new Error(job.error);
+        if(!job.manifestUrl) throw new Error("Unknown deployment error");
+
+        result.innerHTML = `
+          <div class="success">
+            <h3><i class="fas fa-check-circle" style="color:#2A7F4A;"></i> Degree Certificate Deployed</h3>
+            <p><strong>Arweave Permanent Certificate:</strong><br>
+              <a href="${job.manifestUrl}" target="_blank">${job.manifestUrl}</a>
+            </p>
+            <div class="result-row">
+              <div><p><strong>QR Code</strong></p><img src="${job.qrCode}" alt="QR"></div>
+            </div>
+            <div class="btn-group">
+              <a href="${job.manifestUrl}" target="_blank"><i class="fas fa-external-link-alt"></i> Open Certificate</a>
+            </div>
+          </div>`;
+        status.textContent = "Done.";
+        loadDegrees();
+        break;
+      }
+      await new Promise(r=>setTimeout(r,900));
+    }
+  } catch(err){
+    showError(err); status.textContent = "";
+  } finally {
+    submit.disabled = false;
+    submit.innerHTML = '<i class="fas fa-rocket"></i> Deploy Degree Certificate';
+  }
+};
+
+async function loadDegrees(){
+  const tb = document.getElementById("degreeRows");
+  tb.innerHTML = '<tr class="empty-row"><td colspan="8">Loading…</td></tr>';
+  try {
+    const r = await fetch('/api/degree-records', { credentials: 'same-origin' });
+    if(!r.ok) throw new Error('HTTP ' + r.status);
+    const { records } = await r.json();
+    if(!records || !records.length){
+      tb.innerHTML = '<tr class="empty-row"><td colspan="8">No degrees deployed yet.</td></tr>';
+      return;
+    }
+    tb.innerHTML = records.map(rec => {
+      const dateStr = rec.created_at
+        ? new Date(rec.created_at.replace(' ', 'T') + 'Z').toLocaleDateString()
+        : '—';
+      const link = rec.manifest_url || '#';
+      const revoked = !!rec.revoked;
+      const statusBadge = revoked
+        ? `<span class="badge revoked">Revoked</span>`
+        : `<span class="badge ok">Active</span>`;
+      const actionBtn = revoked
+        ? `<button class="revoke-btn" disabled><i class="fas fa-ban"></i> Revoked</button>`
+        : `<button class="revoke-btn" data-manifest="${esc(rec.manifest_tx)}" data-symbol="${esc(rec.symbol_no||'')}" data-name="${esc(rec.student_name||'')}">
+             <i class="fas fa-ban"></i> Revoke
+           </button>`;
+
+      return `<tr>
+        <td>${esc(rec.symbol_no || '—')}</td>
+        <td>${esc(rec.student_name || '—')}</td>
+        <td>${esc(rec.programme || '—')}</td>
+        <td>${esc(dateStr)}</td>
+        <td>${statusBadge}</td>
+        <td><a href="${esc(link)}" target="_blank" rel="noopener noreferrer">
+          <i class="fas fa-external-link-alt"></i> View
+        </a></td>
+        <td><a class="pdf-btn" href="/download-degree/${rec.id}" download>
+          <i class="fas fa-file-pdf"></i> Download PDF
+        </a></td>
+        <td>${actionBtn}</td>
+      </tr>`;
+    }).join('');
+
+    tb.querySelectorAll('.revoke-btn:not([disabled])').forEach(btn => {
+      btn.addEventListener('click', () => openRevokeModal(
+        btn.dataset.manifest, btn.dataset.symbol, btn.dataset.name
+      ));
+    });
+  } catch(e){
+    tb.innerHTML = `<tr class="empty-row"><td colspan="8" style="color:#b3261e;">${esc(e.message)}</td></tr>`;
+  }
+}
+loadDegrees();
+
+const revokeModal    = document.getElementById('revokeModal');
+const revokeTarget   = document.getElementById('revokeTarget');
+const revokePassword = document.getElementById('revokePassword');
+const revokeMsg      = document.getElementById('revokeMsg');
+const revokeCancel   = document.getElementById('revokeCancel');
+const revokeConfirm  = document.getElementById('revokeConfirm');
+let revokeManifestTx = '';
+
+function openRevokeModal(manifestTx, symbol, name){
+  revokeManifestTx = manifestTx;
+  revokeTarget.textContent = `${name || '(no name)'} · ${symbol || '(no symbol)'} · ${manifestTx}`;
+  revokePassword.value = '';
+  revokeMsg.className = 'modal-msg'; revokeMsg.textContent = '';
+  revokeConfirm.disabled = false;
+  revokeConfirm.innerHTML = '<i class="fas fa-ban"></i> Revoke';
+  revokeModal.classList.add('show');
+  setTimeout(()=>revokePassword.focus(), 60);
+}
+function closeRevokeModal(){
+  revokeModal.classList.remove('show');
+  revokeManifestTx = '';
+  revokePassword.value = '';
+}
+revokeCancel.addEventListener('click', closeRevokeModal);
+revokeModal.addEventListener('click', (e)=>{ if(e.target===revokeModal) closeRevokeModal(); });
+document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && revokeModal.classList.contains('show')) closeRevokeModal(); });
+revokePassword.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); revokeConfirm.click(); } });
+
+revokeConfirm.addEventListener('click', async ()=>{
+  const pw = revokePassword.value;
+  if(!pw){
+    revokeMsg.className = 'modal-msg show err';
+    revokeMsg.textContent = 'Please enter your password.';
+    return;
+  }
+  revokeConfirm.disabled = true;
+  revokeConfirm.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Revoking…';
+  revokeMsg.className = 'modal-msg'; revokeMsg.textContent = '';
+
+  try {
+    const res = await fetch('/revoke-degree', {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ manifestTx: revokeManifestTx, password: pw })
+    });
+    const data = await res.json().catch(()=>({}));
+    if(!res.ok) throw new Error(data.error || 'Revocation failed');
+
+    revokeMsg.className = 'modal-msg show ok';
+    revokeMsg.innerHTML = `✔ Revoked. List TX: <code style="font-size:.75rem;">${esc(data.revocationListTx||'')}</code>`;
+    revokeConfirm.innerHTML = '<i class="fas fa-check"></i> Done';
+
+    setTimeout(()=>{ closeRevokeModal(); loadDegrees(); }, 1200);
+  } catch(err){
+    revokeMsg.className = 'modal-msg show err';
+    revokeMsg.textContent = err.message || 'Revocation failed';
+    revokeConfirm.disabled = false;
+    revokeConfirm.innerHTML = '<i class="fas fa-ban"></i> Revoke';
+  }
+});
+</script>
+</body>
+</html>
