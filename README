@@ -1,0 +1,10 @@
+<!--
+Install dependencies.
+
+Add your Arweave wallet JSON file to:
+`users/Degree-Deployment/wallet.json`
+
+After running locally, use:
+- Username: `user`
+- Password: `Aareejan_0`
+-->
